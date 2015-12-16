@@ -73,6 +73,7 @@ namespace CsgoLobbyJoiner
             else
             {
                 Console.WriteLine("Please get an API key from https://steamcommunity.com/dev/apikey and put it in apikey.txt next to the .exe");
+                Console.ReadKey();
                 return -1;
             }
 
@@ -87,10 +88,10 @@ namespace CsgoLobbyJoiner
                             .Result;
                     if (res.IsSuccessStatusCode)
                     {
-                        var gay = JsonConvert.DeserializeObject<dynamic>(res.Content.ReadAsStringAsync().Result);
-                        if (gay.response?.players?.player?[0]?.lobbysteamid != null)
+                        var jsonresp = JsonConvert.DeserializeObject<dynamic>(res.Content.ReadAsStringAsync().Result);
+                        if (jsonresp.response?.players?.player?[0]?.lobbysteamid != null)
                         {
-                            baselobby = gay.response?.players?.player?[0]?.lobbysteamid;
+                            baselobby = jsonresp.response?.players?.player?[0]?.lobbysteamid;
                         }
                         else
                         {
