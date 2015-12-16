@@ -67,15 +67,14 @@ namespace CsgoLobbyJoiner
 
             Console.WriteLine($"Your id: {cuser.GetSteamID()}");
 
-            string apikey;
-            if (File.Exists("apikey.txt"))
-                apikey = File.ReadAllText("apikey.txt");
-            else
+            if (!File.Exists("apikey.txt"))
             {
                 Console.WriteLine("Please get an API key from https://steamcommunity.com/dev/apikey and put it in apikey.txt next to the .exe");
                 Console.ReadKey();
                 return -1;
             }
+
+            var apikey = File.ReadAllText("apikey.txt");
 
             long baselobby = 0;
             using (var http = new HttpClient())
